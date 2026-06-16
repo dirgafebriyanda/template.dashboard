@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/img/logo/nuanxa-favicon.png"
+    />
+    <title>Nuanxa - Dashbard</title>
+    <link
+      rel="stylesheet"
+      href="/assets/fontawesome-free-7.0.1-web/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script>
+      function applyTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+
+      let current = localStorage.theme;
+      if (!current) {
+        current = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        localStorage.theme = current;
+      }
+
+      applyTheme(current);
+    </script>
+  </head>
+
+  <body
+    class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-900 dark:text-gray-50"
+  >
+    <!-- Sidebar -->
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-5 top-6 bottom-6 w-60 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl z-30 transform transition-transform duration-500 ease-in-out -translate-x-[120%] sm:translate-x-0"
+    >
+      <div class="flex items-center justify-between p-4">
+        <a href="#" class="flex items-center gap-1 w-24">
+          <img
+            src="/assets/img/logo/nuanxa-dark.png"
+            class="hidden dark:block"
+            alt="Logo Dark"
+          />
+          <img
+            src="/assets/img/logo/nuanxa-light.png"
+            class="dark:hidden block"
+            alt="Logo Light"
+          />
+        </a>
+        <button
+          id="buttonClose"
+          class="sm:hidden text-gray-400 hover:text-gray-w-2800 dark:hover:text-gray-300"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <hr class="border border-gray-300 dark:border-gray-700 mx-4" />
+
+      <nav
+        class="p-2 text-sm font-normal overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-transparent dark:scrollbar-thumb-gray-400 h-[calc(100%-120px)]"
+      >
+        <ul class="space-y-2">
+          <!-- Dashboard -->
+          <li>
+            <a
+              href="dashboard.html"
+              class="flex items-center gap-2 p-2 rounded-lg bg-blue-400 text-white dark:bg-gray-700 w-full"
+            >
+              <i class="fas fa-laptop text-sm"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <!-- Pages -->
+          <li class="pt-3 ms-2">
+            <span
+              class="text-gray-500 dark:text-gray-400 text-xs font-semibold tracking-wide"
+            >
+              PAGES
+            </span>
+          </li>
+
+          <li>
+            <a
+              href="/pages/auth/login.html"
+              class="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-200 dark:hover:bg-gray-700 w-full"
+            >
+              <i class="fas fa-sign-in-alt text-sm"></i>
+              <span>Login</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/pages/auth/register.html"
+              class="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-200 dark:hover:bg-gray-700 w-full"
+            >
+              <i class="fas fa-user-plus text-sm"></i>
+              <span>Register</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/pages/auth/forgot-password.html"
+              class="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-200 dark:hover:bg-gray-700 w-full"
+            >
+              <i class="fas fa-lock-open text-sm"></i>
+              <span>Forgot Password</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/pages/auth/reset-password.html"
+              class="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-200 dark:hover:bg-gray-700 w-full"
+            >
+              <i class="fas fa-key text-sm"></i>
+              <span>Reset Password</span>
+            </a>
+          </li>
+
+          <!-- Error Pages -->
+          <li class="pt-3 ms-2">
+            <span
+              class="text-gray-500 dark:text-gray-400 text-xs font-semibold tracking-wide"
+            >
+              ERROR PAGES
+            </span>
+          </li>
+          <li>
+            <a
+              href="/pages/error-404.html"
+              class="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-200 dark:hover:bg-gray-700 w-full"
+            >
+              <i class="fas fa-exclamation-circle text-sm"></i>
+              <span>Error 404</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="sm:ml-64 p-6">
+      <!-- Navbar -->
+      <nav
+        class="flex-col md:flex-row bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl mb-6 p-3 flex justify-between"
+      >
+        <div>
+          <h6 class="text-gray-500 text-sm">Pages / Dashboard</h6>
+          <h2 class="font-bold text-lg">Dashboard</h2>
+        </div>
+
+        <div class="flex items-center gap-2 pt-4 md:pt-0">
+          <div class="relative me-4">
+            <i
+              class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
+            ></i>
+
+            <input
+              type="text"
+              placeholder="Search."
+              class="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-200 focus:border-blue-200"
+            />
+          </div>
+
+          <button
+            id="fullscreen-btn"
+            class="hover:text-gray-600 dark:hover:text-gray-300"
+          >
+            <i id="fullscreen-btn-icon" class="fas fa-expand transition"></i>
+          </button>
+
+          <div class="relative inline-block text-left">
+            <button
+              data-dropdown-toggle="dropdown-notif"
+              class="hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              <span class="fas fa-bell"></span>
+              <span
+                class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-semibold px-1 rounded-full border border-white dark:border-gray-800"
+              >
+                3
+              </span>
+            </button>
+            <div
+              id="dropdown-notif"
+              class="dropdown-menu hidden absolute right-0 w-64 bg-white dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 shadow-lg z-20"
+            >
+              <div
+                class="px-4 py-2 border-b border-gray-200 dark:border-gray-700"
+              >
+                <h6
+                  class="text-sm font-semibold text-gray-700 dark:text-gray-200"
+                >
+                  Notifications
+                </h6>
+              </div>
+              <ul class="max-h-60 overflow-y-auto">
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <div class="font-semibold">Payment received</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      NovaTech Ltd. paid invoice INV-20251001
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <div class="font-semibold">Pending payment</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      Brightline Agency - invoice INV-20251002
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <div class="font-semibold">Invoice overdue</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                      Cloudify Systems - invoice INV-20251004
+                    </div>
+                  </a>
+                </li>
+              </ul>
+              <div
+                class="text-center border-t border-gray-200 dark:border-gray-700 py-2 text-sm"
+              >
+                <a
+                  href="#all"
+                  class="text-blue-600 dark:text-blue-400 hover:underline"
+                  >View all</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="relative inline-block text-left">
+            <button
+              data-dropdown-toggle="dropdown-profile"
+              class="hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              <span class="fas fa-user"></span>
+            </button>
+            <ul
+              id="dropdown-profile"
+              class="dropdown-menu hidden absolute right-0 w-40 bg-white dark:bg-gray-800 rounded-md border border-gray-300 dark:border-gray-700 shadow-lg z-20"
+            >
+              <li>
+                <a
+                  href="#profile"
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <i class="fas fa-user"></i> My Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#settings"
+                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <i class="fas fa-cog"></i> Settings
+                </a>
+              </li>
+              <li>
+                <form method="POST" action="/logout">
+                  <button
+                    type="submit"
+                    class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            id="toggleSidebar"
+            class="md:hidden hover:text-gray-600 dark:hover:text-gray-300 transition"
+          >
+            <i id="toggleIcon" class="fa-solid fa-bars"></i>
+          </button>
+
+          <label
+            for="theme-toggle"
+            class="relative w-9 h-5 bg-gray-800 dark:bg-white rounded-full p-2 cursor-pointer"
+          >
+            <i
+              id="theme-icon"
+              class="absolute top-0 left-0 text-sm text-white dark:text-gray-800 transition-transform duration-300 translate-x-0"
+            ></i>
+          </label>
+          <input type="checkbox" id="theme-toggle" class="sr-only" />
+        </div>
+      </nav>
+
+      <!-- Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Card 1 -->
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6 flex items-center justify-between"
+        >
+          <div>
+            <h3 class="text-sm font-medium">Users</h3>
+            <p class="text-2xl font-bold">1,245</p>
+          </div>
+          <div class="p-3 bg-blue-100 text-blue-600 rounded-full">
+            <!-- Icon User -->
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6 flex items-center justify-between"
+        >
+          <div>
+            <h3 class="text-sm font-medium">Orders</h3>
+            <p class="text-2xl font-bold">320</p>
+          </div>
+          <div class="p-3 bg-green-100 text-green-600 rounded-full">
+            <!-- Icon Shopping Cart -->
+            <i class="fas fa-cart-shopping"></i>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6 flex items-center justify-between"
+        >
+          <div>
+            <h3 class="text-sm font-medium">Revenue</h3>
+            <p class="text-2xl font-bold">$12,430</p>
+          </div>
+          <div class="p-3 bg-yellow-100 text-yellow-600 rounded-full">
+            <!-- Icon Dollar -->
+            <i class="fas fa-money-check-dollar"></i>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6 flex items-center justify-between"
+        >
+          <div>
+            <h3 class="text-sm font-medium">Messages</h3>
+            <p class="text-2xl font-bold">87</p>
+          </div>
+          <div class="p-3 bg-red-100 text-red-600 rounded-full">
+            <!-- Icon Mail -->
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto mb-6"
+      >
+        <!-- Chart Besar -->
+        <div
+          id="chart"
+          class="md:col-span-2 lg:col-span-2 text-gray-600 lg:row-span-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6"
+        ></div>
+
+        <!-- Sidebar Cards -->
+        <!-- Card 1 -->
+        <div
+          id="chart-donut"
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6"
+        ></div>
+
+        <!-- Card 2 -->
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl p-6"
+        >
+          <!-- Header -->
+          <div class="flex justify-between items-center mb-4">
+            <h1 class="font-semibold text-lg text-gray-700 dark:text-gray-200">
+              Monthly Earnings
+            </h1>
+            <div
+              class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500"
+            >
+              <i class="fas fa-dollar-sign text-white text-sm"></i>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="mb-4">
+            <h2
+              class="font-semibold text-2xl text-gray-900 dark:text-white mb-2"
+            >
+              $6,820
+            </h2>
+            <div class="flex items-center space-x-2 text-sm">
+              <span
+                class="flex items-center justify-center w-6 h-6 rounded-full -rotate-45 bg-red-200"
+              >
+                <i class="fas fa-arrow-down text-red-600 text-xs"></i>
+              </span>
+              <p class="text-gray-900 dark:text-white font-medium">+9%</p>
+              <p class="text-gray-500 dark:text-gray-400">last year</p>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div id="earning"></div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="max-w-7xl mx-auto mb-6">
+        <div
+          class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-md shadow-blue-200 dark:shadow-gray-700 rounded-2xl pb-6"
+        >
+          <h6 class="font-semibold items-center p-4">Order Transactions</h6>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-gray-100 dark:bg-gray-700">
+                <tr>
+                  <th class="px-4 py-3">#</th>
+                  <th class="px-4 py-3">Order ID</th>
+                  <th class="px-4 py-3">Customer</th>
+                  <th class="px-4 py-3">Total</th>
+                  <th class="px-4 py-3">Payment</th>
+                  <th class="px-4 py-3">Status</th>
+                  <th class="px-4 py-3">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">1</td>
+                  <td class="px-4 py-3">ORD-24001</td>
+                  <td class="px-4 py-3">Michael Anderson</td>
+                  <td class="px-4 py-3">$120</td>
+                  <td class="px-4 py-3">Credit Card</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >Paid</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-01</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">2</td>
+                  <td class="px-4 py-3">ORD-24002</td>
+                  <td class="px-4 py-3">Sophia Lee</td>
+                  <td class="px-4 py-3">$85</td>
+                  <td class="px-4 py-3">PayPal</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-02</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">3</td>
+                  <td class="px-4 py-3">ORD-24003</td>
+                  <td class="px-4 py-3">Daniel Wright</td>
+                  <td class="px-4 py-3">$230</td>
+                  <td class="px-4 py-3">Bank Transfer</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs"
+                      >Failed</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-03</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">4</td>
+                  <td class="px-4 py-3">ORD-24004</td>
+                  <td class="px-4 py-3">Olivia Carter</td>
+                  <td class="px-4 py-3">$155</td>
+                  <td class="px-4 py-3">Cash</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >Paid</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-04</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">5</td>
+                  <td class="px-4 py-3">ORD-24005</td>
+                  <td class="px-4 py-3">Emma Roberts</td>
+                  <td class="px-4 py-3">$420</td>
+                  <td class="px-4 py-3">Crypto</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-05</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">6</td>
+                  <td class="px-4 py-3">ORD-24006</td>
+                  <td class="px-4 py-3">Liam Johnson</td>
+                  <td class="px-4 py-3">$310</td>
+                  <td class="px-4 py-3">Credit Card</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >Paid</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-06</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">7</td>
+                  <td class="px-4 py-3">ORD-24007</td>
+                  <td class="px-4 py-3">Ava Mitchell</td>
+                  <td class="px-4 py-3">$198</td>
+                  <td class="px-4 py-3">PayPal</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >Paid</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-07</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">8</td>
+                  <td class="px-4 py-3">ORD-24008</td>
+                  <td class="px-4 py-3">Ethan Walker</td>
+                  <td class="px-4 py-3">$75</td>
+                  <td class="px-4 py-3">Cash</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs"
+                      >Canceled</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-08</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">9</td>
+                  <td class="px-4 py-3">ORD-24009</td>
+                  <td class="px-4 py-3">Isabella Martinez</td>
+                  <td class="px-4 py-3">$590</td>
+                  <td class="px-4 py-3">Credit Card</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs"
+                      >Paid</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-09</td>
+                </tr>
+                <tr class="border-t border-gray-300 dark:border-gray-700">
+                  <td class="px-4 py-3">10</td>
+                  <td class="px-4 py-3">ORD-24010</td>
+                  <td class="px-4 py-3">Noah Scott</td>
+                  <td class="px-4 py-3">$260</td>
+                  <td class="px-4 py-3">Bank Transfer</td>
+                  <td class="px-4 py-3">
+                    <span
+                      class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="px-4 py-3">2025-10-10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer
+        class="border-t border-gray-300 dark:border-gray-700 my-6 p-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <img
+            src="/assets/img/logo/nuanxa-icon-dark.png"
+            class="w-7 hidden dark:block"
+            alt="Logo Dark"
+          />
+          <img
+            src="/assets/img/logo/nuanxa-icon-light.png"
+            class="w-7 dark:hidden block"
+            alt="Logo Light"
+          />
+          <span class="text-gray-500 dark:text-gray-400">
+            © 2025 Owlix. All rights reserved.</span
+          >
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl text-red-500 fab fa-instagram"></span>
+          <span class="text-xl text-blue-700 fab fa-facebook"></span>
+          <span class="text-xl text-red-700 fab fa-youtube"></span>
+        </div>
+      </footer>
+    </main>
+
+    <button
+      id="back-to-top"
+      class="fixed z-50 bottom-5 right-4 flex items-center justify-center shadow-sm shadow-blue-200 dark:shadow-gray-700 w-7 h-8 rounded-lg bg-gray-700 text-white dark:bg-gray-300 border border-gray-500 dark:border-gray-900 dark:text-black hover:bg-gray-800 hover:dark:bg-gray-200 hover:-translate-y-0.5 transition transform duration-300 opacity-0 invisible"
+    >
+      <span class="fas fa-chevron-up"></span>
+    </button>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+  </body>
+</html>
