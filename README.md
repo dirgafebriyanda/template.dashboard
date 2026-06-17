@@ -25,7 +25,7 @@ Live Demo: https://template-dashboard-two-omega.vercel.app/
 
 ```bash
 git clone https://github.com/dirgafebriyanda/template.dashboard.git
-cd template.auth
+cd template.dashboard
 npm install
 ```
 
